@@ -6,7 +6,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A00000000000000000000101 /* BLKTRCKRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000201 /* BLKTRCKRApp.swift */; };
+		A00000000000000000000101 /* blktrckrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000201 /* blktrckrApp.swift */; };
 		A00000000000000000000102 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000202 /* AppDelegate.swift */; };
 		A00000000000000000000103 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000203 /* AppState.swift */; };
 		A00000000000000000000104 /* TimeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000204 /* TimeBlock.swift */; };
@@ -19,7 +19,7 @@
 		A0000000000000000000010B /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020B /* MainWindowView.swift */; };
 		A0000000000000000000010C /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020C /* TimelineView.swift */; };
 		A0000000000000000000010D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020D /* libsqlite3.tbd */; };
-		A0000000000000000000010E /* BLKTRCKRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000210 /* BLKTRCKRTests.swift */; };
+		A0000000000000000000010E /* blktrckrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000210 /* blktrckrTests.swift */; };
 		A0000000000000000000010F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00000000000000000000212 /* XCTest.framework */; };
 		A00000000000000000000110 /* SummaryMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000213 /* SummaryMetrics.swift */; };
 		A00000000000000000000111 /* SummariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000214 /* SummariesView.swift */; };
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A00000000000000000000201 /* BLKTRCKRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLKTRCKRApp.swift; sourceTree = "<group>"; };
+		A00000000000000000000201 /* blktrckrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blktrckrApp.swift; sourceTree = "<group>"; };
 		A00000000000000000000202 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A00000000000000000000203 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A00000000000000000000204 /* TimeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBlock.swift; sourceTree = "<group>"; };
@@ -43,9 +43,9 @@
 		A0000000000000000000020C /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		A0000000000000000000020D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		A0000000000000000000020E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0000000000000000000020F /* BLKTRCKR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLKTRCKR.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A00000000000000000000210 /* BLKTRCKRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLKTRCKRTests.swift; sourceTree = "<group>"; };
-		A00000000000000000000211 /* BLKTRCKRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLKTRCKRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0000000000000000000020F /* blktrckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blktrckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00000000000000000000210 /* blktrckrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blktrckrTests.swift; sourceTree = "<group>"; };
+		A00000000000000000000211 /* blktrckrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = blktrckrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00000000000000000000212 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
 		A00000000000000000000213 /* SummaryMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryMetrics.swift; sourceTree = "<group>"; };
 		A00000000000000000000214 /* SummariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummariesView.swift; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 			containerPortal = A00000000000000000000601 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A00000000000000000000501;
-			remoteInfo = BLKTRCKR;
+			remoteInfo = blktrckr;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -85,14 +85,14 @@
 		A00000000000000000000401 = {
 			isa = PBXGroup;
 			children = (
-				A00000000000000000000402 /* BLKTRCKR */,
-				A0000000000000000000040A /* BLKTRCKRTests */,
+				A00000000000000000000402 /* blktrckr */,
+				A0000000000000000000040A /* blktrckrTests */,
 				A00000000000000000000408 /* Frameworks */,
 				A00000000000000000000409 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A00000000000000000000402 /* BLKTRCKR */ = {
+		A00000000000000000000402 /* blktrckr */ = {
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000403 /* App */,
@@ -102,13 +102,13 @@
 				A00000000000000000000407 /* Views */,
 				A0000000000000000000020E /* Info.plist */,
 			);
-			path = BLKTRCKR;
+			path = blktrckr;
 			sourceTree = "<group>";
 		};
 		A00000000000000000000403 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				A00000000000000000000201 /* BLKTRCKRApp.swift */,
+				A00000000000000000000201 /* blktrckrApp.swift */,
 				A00000000000000000000202 /* AppDelegate.swift */,
 				A00000000000000000000203 /* AppState.swift */,
 			);
@@ -166,24 +166,24 @@
 		A00000000000000000000409 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0000000000000000000020F /* BLKTRCKR.app */,
-				A00000000000000000000211 /* BLKTRCKRTests.xctest */,
+				A0000000000000000000020F /* blktrckr.app */,
+				A00000000000000000000211 /* blktrckrTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A0000000000000000000040A /* BLKTRCKRTests */ = {
+		A0000000000000000000040A /* blktrckrTests */ = {
 			isa = PBXGroup;
-			children = (A00000000000000000000210 /* BLKTRCKRTests.swift */,);
-			path = BLKTRCKRTests;
+			children = (A00000000000000000000210 /* blktrckrTests.swift */,);
+			path = blktrckrTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A00000000000000000000501 /* BLKTRCKR */ = {
+		A00000000000000000000501 /* blktrckr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A00000000000000000000702 /* Build configuration list for PBXNativeTarget "BLKTRCKR" */;
+			buildConfigurationList = A00000000000000000000702 /* Build configuration list for PBXNativeTarget "blktrckr" */;
 			buildPhases = (
 				A00000000000000000000302 /* Sources */,
 				A00000000000000000000301 /* Frameworks */,
@@ -191,17 +191,17 @@
 			);
 			buildRules = ();
 			dependencies = ();
-			name = BLKTRCKR;
+			name = blktrckr;
 			packageProductDependencies = (
 				A00000000000000000000A01 /* Sparkle */,
 			);
-			productName = BLKTRCKR;
-			productReference = A0000000000000000000020F /* BLKTRCKR.app */;
+			productName = blktrckr;
+			productReference = A0000000000000000000020F /* blktrckr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A00000000000000000000502 /* BLKTRCKRTests */ = {
+		A00000000000000000000502 /* blktrckrTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A00000000000000000000703 /* Build configuration list for PBXNativeTarget "BLKTRCKRTests" */;
+			buildConfigurationList = A00000000000000000000703 /* Build configuration list for PBXNativeTarget "blktrckrTests" */;
 			buildPhases = (
 				A00000000000000000000305 /* Sources */,
 				A00000000000000000000304 /* Frameworks */,
@@ -209,9 +209,9 @@
 			);
 			buildRules = ();
 			dependencies = (A00000000000000000000902 /* PBXTargetDependency */,);
-			name = BLKTRCKRTests;
-			productName = BLKTRCKRTests;
-			productReference = A00000000000000000000211 /* BLKTRCKRTests.xctest */;
+			name = blktrckrTests;
+			productName = blktrckrTests;
+			productReference = A00000000000000000000211 /* blktrckrTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -219,7 +219,7 @@
 /* Begin PBXTargetDependency section */
 		A00000000000000000000902 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A00000000000000000000501 /* BLKTRCKR */;
+			target = A00000000000000000000501 /* blktrckr */;
 			targetProxy = A00000000000000000000901 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -236,7 +236,7 @@
 					A00000000000000000000502 = { CreatedOnToolsVersion = 26.6; TestTargetID = A00000000000000000000501; };
 				};
 			};
-			buildConfigurationList = A00000000000000000000701 /* Build configuration list for PBXProject "BLKTRCKR" */;
+			buildConfigurationList = A00000000000000000000701 /* Build configuration list for PBXProject "blktrckr" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (en, Base,);
@@ -250,8 +250,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A00000000000000000000501 /* BLKTRCKR */,
-				A00000000000000000000502 /* BLKTRCKRTests */,
+				A00000000000000000000501 /* blktrckr */,
+				A00000000000000000000502 /* blktrckrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A00000000000000000000101 /* BLKTRCKRApp.swift in Sources */,
+				A00000000000000000000101 /* blktrckrApp.swift in Sources */,
 				A00000000000000000000102 /* AppDelegate.swift in Sources */,
 				A00000000000000000000103 /* AppState.swift in Sources */,
 				A00000000000000000000104 /* TimeBlock.swift in Sources */,
@@ -298,7 +298,7 @@
 		A00000000000000000000305 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (A0000000000000000000010E /* BLKTRCKRTests.swift in Sources */,);
+			files = (A0000000000000000000010E /* blktrckrTests.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
@@ -350,7 +350,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = BLKTRCKR/Info.plist;
+				INFOPLIST_FILE = blktrckr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fetch.blktrckr;
@@ -369,7 +369,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = BLKTRCKR/Info.plist;
+				INFOPLIST_FILE = blktrckr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fetch.blktrckr;
@@ -390,7 +390,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fetch.blktrckr.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLKTRCKR.app/Contents/MacOS/BLKTRCKR";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/blktrckr.app/Contents/MacOS/blktrckr";
 			};
 			name = Debug;
 		};
@@ -404,14 +404,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fetch.blktrckr.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLKTRCKR.app/Contents/MacOS/BLKTRCKR";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/blktrckr.app/Contents/MacOS/blktrckr";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A00000000000000000000701 /* Build configuration list for PBXProject "BLKTRCKR" */ = {
+		A00000000000000000000701 /* Build configuration list for PBXProject "blktrckr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A00000000000000000000801 /* Debug */,
@@ -420,7 +420,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A00000000000000000000702 /* Build configuration list for PBXNativeTarget "BLKTRCKR" */ = {
+		A00000000000000000000702 /* Build configuration list for PBXNativeTarget "blktrckr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A00000000000000000000803 /* Debug */,
@@ -429,7 +429,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A00000000000000000000703 /* Build configuration list for PBXNativeTarget "BLKTRCKRTests" */ = {
+		A00000000000000000000703 /* Build configuration list for PBXNativeTarget "blktrckrTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A00000000000000000000805 /* Debug */,

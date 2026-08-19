@@ -33,7 +33,7 @@ final class Database {
             databaseURL = url
         } else {
             let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            let directory = support.appendingPathComponent("BLKTRCKR", isDirectory: true)
+            let directory = support.appendingPathComponent("blktrckr", isDirectory: true)
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             databaseURL = directory.appendingPathComponent("TimeBlocks.sqlite")
         }

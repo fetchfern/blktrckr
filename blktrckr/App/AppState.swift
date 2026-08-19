@@ -99,7 +99,7 @@ final class AppState: ObservableObject {
         let isRunningTests = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
         do {
             let testURL = isRunningTests
-                ? FileManager.default.temporaryDirectory.appendingPathComponent("BLKTRCKR-TestHost-\(UUID().uuidString).sqlite")
+                ? FileManager.default.temporaryDirectory.appendingPathComponent("blktrckr-TestHost-\(UUID().uuidString).sqlite")
                 : nil
             database = try Database(url: testURL)
             refresh()
@@ -495,7 +495,7 @@ final class AppState: ObservableObject {
     }
 
     private func handle(_ error: Error) {
-        NSLog("BLKTRCKR error: %@", error.localizedDescription)
+        NSLog("blktrckr error: %@", error.localizedDescription)
         setWarning(.database, error.localizedDescription)
     }
 

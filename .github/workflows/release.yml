@@ -45,8 +45,8 @@ jobs:
         run: |
           set -euo pipefail
           xcodebuild \
-            -project BLKTRCKR.xcodeproj \
-            -scheme BLKTRCKR \
+            -project blktrckr.xcodeproj \
+            -scheme blktrckr \
             -configuration Debug \
             -destination "platform=macOS,arch=arm64" \
             -derivedDataPath "$RUNNER_TEMP/test-derived-data" \
@@ -64,8 +64,8 @@ jobs:
         run: |
           set -euo pipefail
           xcodebuild \
-            -project BLKTRCKR.xcodeproj \
-            -scheme BLKTRCKR \
+            -project blktrckr.xcodeproj \
+            -scheme blktrckr \
             -configuration Release \
             -destination "generic/platform=macOS" \
             -derivedDataPath "$DERIVED_DATA" \
@@ -85,8 +85,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          app="$DERIVED_DATA/Build/Products/Release/BLKTRCKR.app"
-          executable="$app/Contents/MacOS/BLKTRCKR"
+          app="$DERIVED_DATA/Build/Products/Release/blktrckr.app"
+          executable="$app/Contents/MacOS/blktrckr"
 
           codesign --verify --deep --strict --verbose=2 "$app"
           [[ "$(lipo -archs "$executable")" == "arm64" ]]
@@ -103,17 +103,17 @@ jobs:
             exit 1
           fi
 
-          app="$DERIVED_DATA/Build/Products/Release/BLKTRCKR.app"
-          symbols="$DERIVED_DATA/Build/Products/Release/BLKTRCKR.app.dSYM"
+          app="$DERIVED_DATA/Build/Products/Release/blktrckr.app"
+          symbols="$DERIVED_DATA/Build/Products/Release/blktrckr.app.dSYM"
           staging="$RUNNER_TEMP/dmg-staging"
-          dmg="$RELEASE_DIR/BLKTRCKR-$VERSION.dmg"
+          dmg="$RELEASE_DIR/blktrckr-$VERSION.dmg"
           sparkle_tools="$SOURCE_PACKAGES/artifacts/sparkle/Sparkle/bin"
 
           mkdir -p "$RELEASE_DIR" "$staging"
-          ditto "$app" "$staging/BLKTRCKR.app"
+          ditto "$app" "$staging/blktrckr.app"
           ln -s /Applications "$staging/Applications"
           hdiutil create \
-            -volname "Time Blocks" \
+            -volname "blktrckr" \
             -srcfolder "$staging" \
             -format UDZO \
             -ov \
@@ -130,7 +130,7 @@ jobs:
               "$RELEASE_DIR"
 
           xmllint --noout "$RELEASE_DIR/appcast.xml"
-          grep -Fq "BLKTRCKR-$VERSION.dmg" "$RELEASE_DIR/appcast.xml"
+          grep -Fq "blktrckr-$VERSION.dmg" "$RELEASE_DIR/appcast.xml"
           grep -Fq "sparkle:edSignature=" "$RELEASE_DIR/appcast.xml"
           grep -Fq "sparkle:minimumSystemVersion>26.0" "$RELEASE_DIR/appcast.xml"
           grep -Fq "sparkle:hardwareRequirements>arm64" "$RELEASE_DIR/appcast.xml"
@@ -138,13 +138,13 @@ jobs:
 
           ditto -c -k --sequesterRsrc --keepParent \
             "$symbols" \
-            "$RELEASE_DIR/BLKTRCKR-$VERSION.dSYM.zip"
+            "$RELEASE_DIR/blktrckr-$VERSION.dSYM.zip"
 
           (
             cd "$RELEASE_DIR"
             shasum -a 256 \
-              "BLKTRCKR-$VERSION.dmg" \
-              "BLKTRCKR-$VERSION.dSYM.zip" \
+              "blktrckr-$VERSION.dmg" \
+              "blktrckr-$VERSION.dSYM.zip" \
               appcast.xml > SHA256SUMS
           )
 
@@ -155,8 +155,8 @@ jobs:
         run: |
           set -euo pipefail
           assets=(
-            "$RELEASE_DIR/BLKTRCKR-$VERSION.dmg"
-            "$RELEASE_DIR/BLKTRCKR-$VERSION.dSYM.zip"
+            "$RELEASE_DIR/blktrckr-$VERSION.dmg"
+            "$RELEASE_DIR/blktrckr-$VERSION.dSYM.zip"
             "$RELEASE_DIR/appcast.xml"
             "$RELEASE_DIR/SHA256SUMS"
           )
@@ -169,6 +169,6 @@ jobs:
             gh release create "$GITHUB_REF_NAME" "${assets[@]}" \
               --repo "$GITHUB_REPOSITORY" \
               --verify-tag \
-              --title "BLKTRCKR $VERSION" \
+              --title "blktrckr $VERSION" \
               --generate-notes
           fi

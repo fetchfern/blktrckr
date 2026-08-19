@@ -2,7 +2,7 @@ import Sparkle
 import SwiftUI
 
 @main
-struct BLKTRCKRApp: App {
+struct blktrckrApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var state = AppState.shared
     private let updaterController: SPUStandardUpdaterController
@@ -17,7 +17,7 @@ struct BLKTRCKRApp: App {
     }
 
     var body: some Scene {
-        Window("Time Blocks", id: "main") {
+        Window("blktrckr", id: "main") {
             MainWindowView(updater: updaterController.updater)
                 .environmentObject(state)
                 .environmentObject(state.eventAppearances)

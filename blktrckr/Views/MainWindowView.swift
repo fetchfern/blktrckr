@@ -16,7 +16,7 @@ struct MainWindowView: View {
                 Label("Settings", systemImage: "gearshape")
                     .tag(MainWindowSection.settings)
             }
-            .navigationTitle("BLKTRCKR")
+            .navigationTitle("blktrckr")
             .navigationSplitViewColumnWidth(min: 170, ideal: 190, max: 240)
         } detail: {
             switch sidebarSelection {

@@ -1,8 +1,8 @@
 import XCTest
 import SQLite3
-@testable import BLKTRCKR
+@testable import blktrckr
 
-final class BLKTRCKRTests: XCTestCase {
+final class blktrckrTests: XCTestCase {
     func testStartingNewBlockAtomicallyReplacesActiveBlock() throws {
         let database = try temporaryDatabase()
         let firstStart = Date(timeIntervalSince1970: 1_700_000_000)
@@ -92,7 +92,7 @@ final class BLKTRCKRTests: XCTestCase {
 
     func testVersionOneDatabaseMigratesDescriptionsWithoutReplacingRows() throws {
         let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("BLKTRCKRMigrationTests-\(UUID().uuidString).sqlite")
+            .appendingPathComponent("blktrckrMigrationTests-\(UUID().uuidString).sqlite")
         addTeardownBlock {
             try? FileManager.default.removeItem(at: url)
             try? FileManager.default.removeItem(at: URL(fileURLWithPath: url.path + "-wal"))
@@ -371,7 +371,7 @@ final class BLKTRCKRTests: XCTestCase {
 
     @MainActor
     func testEventAppearanceMappingsPersistByNormalizedName() throws {
-        let suiteName = "BLKTRCKRTests.EventAppearance.\(UUID().uuidString)"
+        let suiteName = "blktrckrTests.EventAppearance.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
         defer { defaults.removePersistentDomain(forName: suiteName) }
         let key = "appearance-test"
@@ -411,7 +411,7 @@ final class BLKTRCKRTests: XCTestCase {
 
     private func temporaryDatabase() throws -> Database {
         let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("BLKTRCKRTests-\(UUID().uuidString).sqlite")
+            .appendingPathComponent("blktrckrTests-\(UUID().uuidString).sqlite")
         addTeardownBlock {
             try? FileManager.default.removeItem(at: url)
             try? FileManager.default.removeItem(at: URL(fileURLWithPath: url.path + "-wal"))
