@@ -24,6 +24,8 @@
 		A00000000000000000000110 /* SummaryMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000213 /* SummaryMetrics.swift */; };
 		A00000000000000000000111 /* SummariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000214 /* SummariesView.swift */; };
 		A00000000000000000000112 /* EventAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000215 /* EventAppearance.swift */; };
+		A00000000000000000000113 /* UpdaterViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000216 /* UpdaterViews.swift */; };
+		A00000000000000000000114 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000A01 /* Sparkle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,7 @@
 		A00000000000000000000213 /* SummaryMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryMetrics.swift; sourceTree = "<group>"; };
 		A00000000000000000000214 /* SummariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummariesView.swift; sourceTree = "<group>"; };
 		A00000000000000000000215 /* EventAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAppearance.swift; sourceTree = "<group>"; };
+		A00000000000000000000216 /* UpdaterViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00000000000000000000114 /* Sparkle in Frameworks */,
 				A0000000000000000000010D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +149,7 @@
 				A0000000000000000000020B /* MainWindowView.swift */,
 				A0000000000000000000020C /* TimelineView.swift */,
 				A00000000000000000000214 /* SummariesView.swift */,
+				A00000000000000000000216 /* UpdaterViews.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +192,9 @@
 			buildRules = ();
 			dependencies = ();
 			name = BLKTRCKR;
+			packageProductDependencies = (
+				A00000000000000000000A01 /* Sparkle */,
+			);
 			productName = BLKTRCKR;
 			productReference = A0000000000000000000020F /* BLKTRCKR.app */;
 			productType = "com.apple.product-type.application";
@@ -234,6 +242,9 @@
 			knownRegions = (en, Base,);
 			mainGroup = A00000000000000000000401;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A00000000000000000000B01 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A00000000000000000000409 /* Products */;
 			projectDirPath = "";
@@ -280,6 +291,7 @@
 				A00000000000000000000110 /* SummaryMetrics.swift in Sources */,
 				A00000000000000000000111 /* SummariesView.swift in Sources */,
 				A00000000000000000000112 /* EventAppearance.swift in Sources */,
+				A00000000000000000000113 /* UpdaterViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +307,7 @@
 		A00000000000000000000801 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -314,6 +327,7 @@
 		A00000000000000000000802 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -425,6 +439,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A00000000000000000000B01 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.9.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A00000000000000000000A01 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000B01 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A00000000000000000000601 /* Project object */;
 }

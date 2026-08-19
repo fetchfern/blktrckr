@@ -1,9 +1,11 @@
+import Sparkle
 import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject private var state: AppState
     @EnvironmentObject private var eventAppearances: EventAppearanceStore
     @State private var newEventName = ""
+    let updater: SPUUpdater
 
     private var controller: LaunchAtLoginController { state.launchAtLogin }
     private var eventNames: [String] { eventAppearances.eventNames(from: state.blocks) }
@@ -12,6 +14,7 @@ struct SettingsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
                 generalSection
+                updatesSection
                 eventAppearanceSection
             }
             .padding(24)
@@ -45,6 +48,21 @@ struct SettingsView: View {
                     }
                 }
             }
+        }
+        .settingsSectionBackground()
+    }
+
+    private var updatesSection: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Updates")
+                    .font(.title3.weight(.semibold))
+                Text("Updates are securely verified by Sparkle before installation.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+
+            UpdaterSettingsView(updater: updater)
         }
         .settingsSectionBackground()
     }

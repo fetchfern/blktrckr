@@ -1,3 +1,4 @@
-# blktrckr
+# BLKTRCKR
 
-a simple time tracker in swiftUI
+a simple macOS time tracker in swiftUI
+

@@ -1,9 +1,11 @@
+import Sparkle
 import SwiftUI
 
 struct MenuBarContentView: View {
     @EnvironmentObject private var state: AppState
     @EnvironmentObject private var eventAppearances: EventAppearanceStore
     @Environment(\.openWindow) private var openWindow
+    let updater: SPUUpdater
 
     private var startedTime: String {
         guard let active = state.activeBlock else { return "" }
@@ -31,6 +33,7 @@ struct MenuBarContentView: View {
         Divider()
         Button("Open Time Blocks") { openWindow(id: "main") }
         SettingsLink { Text("Settings") }
+        CheckForUpdatesView(updater: updater)
         Button("Quit") {
             state.prepareForTermination()
             NSApp.terminate(nil)

@@ -1,8 +1,10 @@
+import Sparkle
 import SwiftUI
 
 struct MainWindowView: View {
     @EnvironmentObject private var state: AppState
     @State private var sidebarSelection = MainWindowSection.timeBlocks
+    let updater: SPUUpdater
 
     var body: some View {
         NavigationSplitView {
@@ -25,7 +27,7 @@ struct MainWindowView: View {
                 SummariesView()
                     .environmentObject(state)
             case .settings:
-                SettingsView()
+                SettingsView(updater: updater)
                     .environmentObject(state)
             }
         }

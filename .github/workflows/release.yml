@@ -1,0 +1,172 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      DERIVED_DATA: ${{ runner.temp }}/derived-data
+      RELEASE_DIR: ${{ runner.temp }}/release
+      SOURCE_PACKAGES: ${{ runner.temp }}/source-packages
+      SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - name: Read release version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release tags must use vMAJOR.MINOR.PATCH." >&2
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Run tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project BLKTRCKR.xcodeproj \
+            -scheme BLKTRCKR \
+            -configuration Debug \
+            -destination "platform=macOS,arch=arm64" \
+            -derivedDataPath "$RUNNER_TEMP/test-derived-data" \
+            -clonedSourcePackagesDirPath "$SOURCE_PACKAGES" \
+            ARCHS=arm64 \
+            ONLY_ACTIVE_ARCH=YES \
+            CODE_SIGN_IDENTITY=- \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM= \
+            ENABLE_HARDENED_RUNTIME=NO \
+            test
+
+      - name: Build release app
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project BLKTRCKR.xcodeproj \
+            -scheme BLKTRCKR \
+            -configuration Release \
+            -destination "generic/platform=macOS" \
+            -derivedDataPath "$DERIVED_DATA" \
+            -clonedSourcePackagesDirPath "$SOURCE_PACKAGES" \
+            ARCHS=arm64 \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY=- \
+            CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM= \
+            ENABLE_HARDENED_RUNTIME=NO \
+            MARKETING_VERSION="$VERSION" \
+            CURRENT_PROJECT_VERSION="$VERSION" \
+            clean build
+
+      - name: Verify release app
+        shell: bash
+        run: |
+          set -euo pipefail
+          app="$DERIVED_DATA/Build/Products/Release/BLKTRCKR.app"
+          executable="$app/Contents/MacOS/BLKTRCKR"
+
+          codesign --verify --deep --strict --verbose=2 "$app"
+          [[ "$(lipo -archs "$executable")" == "arm64" ]]
+          [[ "$(plutil -extract LSMinimumSystemVersion raw "$app/Contents/Info.plist")" == "26.0" ]]
+          [[ "$(plutil -extract CFBundleShortVersionString raw "$app/Contents/Info.plist")" == "$VERSION" ]]
+          [[ "$(plutil -extract CFBundleVersion raw "$app/Contents/Info.plist")" == "$VERSION" ]]
+
+      - name: Create DMG and Sparkle appcast
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$SPARKLE_ED_PRIVATE_KEY" ]]; then
+            echo "The SPARKLE_ED_PRIVATE_KEY repository secret is not configured." >&2
+            exit 1
+          fi
+
+          app="$DERIVED_DATA/Build/Products/Release/BLKTRCKR.app"
+          symbols="$DERIVED_DATA/Build/Products/Release/BLKTRCKR.app.dSYM"
+          staging="$RUNNER_TEMP/dmg-staging"
+          dmg="$RELEASE_DIR/BLKTRCKR-$VERSION.dmg"
+          sparkle_tools="$SOURCE_PACKAGES/artifacts/sparkle/Sparkle/bin"
+
+          mkdir -p "$RELEASE_DIR" "$staging"
+          ditto "$app" "$staging/BLKTRCKR.app"
+          ln -s /Applications "$staging/Applications"
+          hdiutil create \
+            -volname "Time Blocks" \
+            -srcfolder "$staging" \
+            -format UDZO \
+            -ov \
+            "$dmg"
+
+          printf '%s' "$SPARKLE_ED_PRIVATE_KEY" | \
+            "$sparkle_tools/generate_appcast" \
+              --ed-key-file - \
+              --download-url-prefix "https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/" \
+              --link "https://github.com/$GITHUB_REPOSITORY" \
+              --maximum-deltas 0 \
+              --maximum-versions 1 \
+              -o "$RELEASE_DIR/appcast.xml" \
+              "$RELEASE_DIR"
+
+          xmllint --noout "$RELEASE_DIR/appcast.xml"
+          grep -Fq "BLKTRCKR-$VERSION.dmg" "$RELEASE_DIR/appcast.xml"
+          grep -Fq "sparkle:edSignature=" "$RELEASE_DIR/appcast.xml"
+          grep -Fq "sparkle:minimumSystemVersion>26.0" "$RELEASE_DIR/appcast.xml"
+          grep -Fq "sparkle:hardwareRequirements>arm64" "$RELEASE_DIR/appcast.xml"
+          grep -Fq "edSignature:" "$RELEASE_DIR/appcast.xml"
+
+          ditto -c -k --sequesterRsrc --keepParent \
+            "$symbols" \
+            "$RELEASE_DIR/BLKTRCKR-$VERSION.dSYM.zip"
+
+          (
+            cd "$RELEASE_DIR"
+            shasum -a 256 \
+              "BLKTRCKR-$VERSION.dmg" \
+              "BLKTRCKR-$VERSION.dSYM.zip" \
+              appcast.xml > SHA256SUMS
+          )
+
+      - name: Publish GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          assets=(
+            "$RELEASE_DIR/BLKTRCKR-$VERSION.dmg"
+            "$RELEASE_DIR/BLKTRCKR-$VERSION.dSYM.zip"
+            "$RELEASE_DIR/appcast.xml"
+            "$RELEASE_DIR/SHA256SUMS"
+          )
+
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "${assets[@]}" \
+              --repo "$GITHUB_REPOSITORY" \
+              --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "${assets[@]}" \
+              --repo "$GITHUB_REPOSITORY" \
+              --verify-tag \
+              --title "BLKTRCKR $VERSION" \
+              --generate-notes
+          fi
