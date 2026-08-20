@@ -198,6 +198,8 @@ private struct TimelineSelectionRail: View {
                 ? maximumSegmentHeight
                 : availableHeight / CGFloat(blocks.count)
             let segmentHeight = min(maximumSegmentHeight, max(minimumSegmentHeight, fittedHeight))
+            let contentHeight = CGFloat(blocks.count) * segmentHeight + gapHeight + (inset * 2)
+            let centersContent = contentHeight < proxy.size.height
 
             ScrollView(.vertical) {
                 LazyVStack(spacing: spacing) {
@@ -212,6 +214,11 @@ private struct TimelineSelectionRail: View {
                     }
                 }
                 .padding(inset)
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: centersContent ? proxy.size.height : nil,
+                    alignment: .center
+                )
             }
             .scrollIndicators(.hidden)
             .background(
@@ -258,6 +265,21 @@ private struct TimelineSelectionSegment: View {
         .zIndex(hovered ? 1 : 0)
         .onHover { hovered = $0 }
         .animation(.spring(response: 0.22, dampingFraction: 0.72), value: hovered)
+        .contextMenu {
+            if !block.isActive {
+                Button("Continue on Task", systemImage: "play.fill") {
+                    state.selectedBlockID = block.id
+                    state.continueBlock(id: block.id)
+                }
+
+                Divider()
+
+                Button("Delete", role: .destructive) {
+                    state.selectedBlockID = block.id
+                    state.deleteSelected()
+                }
+            }
+        }
         .help([
             block.name,
             block.description,

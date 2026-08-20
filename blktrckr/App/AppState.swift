@@ -409,13 +409,46 @@ final class AppState: ObservableObject {
         stop(blockID: activeBlock.id, at: Date(), reason: .applicationQuit, notify: true)
     }
 
+    func openTimeBlocks() {
+        selectedDate = Date()
+        presentTimeBlocksWindow()
+    }
+
     func reveal(blockID: UUID) {
         refresh()
         guard let block = blocks.first(where: { $0.id == blockID }) else { return }
         selectedDate = block.startedAt
         selectedBlockID = blockID
+        presentTimeBlocksWindow()
+    }
+
+    /// Activates the app, switches the main window to Time Blocks, and brings it onto the
+    /// current Space (menu-bar apps with `LSUIElement` otherwise leave the window stranded).
+    private func presentTimeBlocksWindow() {
         NSApp.activate(ignoringOtherApps: true)
         NotificationCenter.default.post(name: .openTimeBlocksWindow, object: nil)
+        Self.bringMainWindowToFront()
+    }
+
+    private static func bringMainWindowToFront() {
+        let raise: () -> Void = {
+            let candidates = NSApp.windows.filter { window in
+                window.canBecomeKey
+                    && window.contentView != nil
+                    && !(window is NSPanel)
+                    && window.frame.width >= 400
+            }
+            for window in candidates {
+                window.collectionBehavior.insert(.moveToActiveSpace)
+                window.makeKeyAndOrderFront(nil)
+                window.orderFrontRegardless()
+            }
+            NSApp.activate(ignoringOtherApps: true)
+        }
+        raise()
+        // openWindow / scene creation can land on a later run-loop turn.
+        DispatchQueue.main.async(execute: raise)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: raise)
     }
 
     func openNotificationSettings() {

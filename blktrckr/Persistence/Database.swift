@@ -294,8 +294,20 @@ final class Database {
             guard let endedAt = existing.endedAt else {
                 throw DatabaseError.invalidData("only completed blocks can be continued")
             }
-            guard existing.startedAt <= date, endedAt <= date else {
+            // Fully future blocks still can't be continued; blocks that overlap "now"
+            // get trimmed to `date` first, then reopened as active.
+            guard existing.startedAt <= date else {
                 throw DatabaseError.continuationInFuture
+            }
+            if endedAt > date {
+                try update("""
+                    UPDATE time_blocks
+                    SET ended_at = ?, was_timing_edited = 1
+                    WHERE id = ? AND ended_at IS NOT NULL
+                    """) { statement in
+                    sqlite3_bind_double(statement, 1, date.timeIntervalSince1970)
+                    bind(id.uuidString, at: 2, in: statement)
+                }
             }
             if try activeBlock() != nil { throw DatabaseError.overlap }
 

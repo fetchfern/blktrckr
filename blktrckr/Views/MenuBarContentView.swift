@@ -31,7 +31,10 @@ struct MenuBarContentView: View {
         }
 
         Divider()
-        Button("Open blktrckr") { openWindow(id: "main") }
+        Button("Open Time Blocks") {
+            openWindow(id: "main")
+            state.openTimeBlocks()
+        }
         SettingsLink { Text("Settings") }
         CheckForUpdatesView(updater: updater)
         Button("Quit") {

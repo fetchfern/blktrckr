@@ -281,6 +281,24 @@ final class blktrckrTests: XCTestCase {
         }
     }
 
+    func testContinuingBlockTrimsEndWhenOverlappingNow() throws {
+        let database = try temporaryDatabase()
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let overlapping = try database.createHistoricalBlock(
+            name: "Overlapping",
+            start: now.addingTimeInterval(-30 * 60),
+            end: now.addingTimeInterval(30 * 60)
+        )
+
+        let continued = try database.continueBlock(id: overlapping.id, at: now)
+
+        XCTAssertEqual(continued.id, overlapping.id)
+        XCTAssertEqual(continued.startedAt, overlapping.startedAt)
+        XCTAssertNil(continued.endedAt)
+        XCTAssertTrue(continued.wasTimingEdited)
+        XCTAssertEqual(try database.activeBlock()?.id, overlapping.id)
+    }
+
     func testSummariesUseLocalDayWeekAndHourBoundaries() throws {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = try XCTUnwrap(TimeZone(identifier: "America/Toronto"))
